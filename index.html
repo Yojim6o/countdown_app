@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<title>countdowns</title>
+  <script src="js/countdowns.json"></script>
+  <script src="js/functions.js"></script>
+</head>
+<body>
+  <script>
+
+    // var j = function geturl(ticker);
+
+    for (var j = 0; j < countdowns.length; j++) {
+      var index = countdowns[j];
+      var title = index["title"];
+      var deadline = index["deadline"];
+      var schedule = index["schedule"];
+      if (deadline) {
+        createClockDiv(title);
+        initializeClock(title, deadline);
+      } else if (schedule) {
+        initializeScheduledCountdown(title, schedule);
+      }
+    };
+
+  </script>
+</body>
+</html>

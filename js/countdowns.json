@@ -1,0 +1,50 @@
+var countdowns = [
+	{
+		"title": "Manual Countdown 1",
+		"deadline": "December 19 2015 18:00:00",
+		"schedule": []
+	},
+	{
+		"title": "Manual Countdown 2",
+		"deadline": "December 28 2015 18:00:00",
+		"schedule": []
+	},
+	{
+		"title": "Scheduled Countdown",
+		"deadline": "",
+		"schedule": [
+			{
+				"start": "December 13 2015 18:00:00", 
+				"end": "December 25 2015 18:00:00"
+			}
+		]
+	},
+	{
+		"title": "Scheduled Countdown with two time spans",
+		"deadline": "",
+		"schedule": [
+			{
+				"start": "December 15 2015 18:00:00", 
+				"end": "December 25 2015 18:00:00"
+			},
+			{
+				"start": "December 13 2015 18:00:00", 
+				"end": "January 04 2016 18:00:00"
+			}
+		]
+	},
+	{
+		"title": "Scheduled Countdown with no current time span",
+		"deadline": "",
+		"schedule": [
+			{
+				"start": "December 18 2015 18:00:00", 
+				"end": "December 25 2015 18:00:00"
+			},
+			{
+				"start": "December 25 2015 18:00:00", 
+				"end": "January 01 2016 18:00:00"
+			}
+		]
+	}
+]
