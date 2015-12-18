@@ -18,10 +18,19 @@ if (isset($_POST['submit'])) {
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 
-	$sql = "INSERT INTO demo (title, start, end) VALUES ('$title', '$start', '$end')";
+	$sql = "INSERT INTO demo (title) VALUES ('$title')";
 	mysqli_query($link,$sql);
+	$Pid = mysqli_insert_id($link);
 
-	buildJSON($link);
+	for ($i = 0; $i < count($start); ++$i) {
+
+		$schedule = $start[$i] .','. $end[$i];
+		$sql2 = "INSERT INTO schedule (PID, schedule) VALUES ('$Pid','$schedule')";
+		mysqli_query($link,$sql2);
+
+	}
+
+	//buildJSON($link);
 }
 
 //Edit
@@ -50,22 +59,31 @@ function buildJSON($link) {
 	$res = mysqli_query($link,$sql);
 	$cdArray = array();
 
-	while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-		$main = $row['title'];
-		$schedule = array($row['start'], $row['end']);
-		$mArray = array($main, $schedule);
-		array_push($cdArray, $mArray);
+	$id = $_POST['ID'];
+	$title = $_POST['title'];
+	$start = $_POST['start'];
+	$end = $_POST['end'];
 
+	// while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+	// 	$main = $row['title'];
+	// 	$schedule = array($row['start'], $row['end']);
+	// 	$mArray = array($main, $schedule);
+	// 	array_push($cdArray, $mArray);
+	// 	array_push($cdArray, $row);
+	// }
+
+
+	foreach( $title as $v) {
+		print_r("");
 	}
-
 	// print_r($cdArray);
-	//$myarray = mysql_fetch_array($res);
-	$json = json_encode($cdArray);
- 	print_r($json);
-	//$fp = fopen('results.json', 'w');
+	// $myarray = mysql_fetch_array($res);
+	// $json = json_encode($cdArray);
+ 	// print_r($json);
+	// $fp = fopen('results.json', 'w');
 	// $txt = "var countdowns = ";
-	//fwrite($fp, $txt.$json);
-	//fclose($fp);
+	// fwrite($fp, $txt.$json);
+	// fclose($fp);
 }
 
 //log out of database

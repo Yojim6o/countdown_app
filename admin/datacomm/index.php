@@ -13,7 +13,6 @@
 <html>
 <head>
 	<title>database</title>
-
 </head>
 <body>
 
@@ -21,17 +20,17 @@
 		<form action="demo.php" method="post" />
 			<p>Title: <input type="text" name="title" /></p>
 <!-- 			<p>Deadline: <input type="text" name="deadline" /></p> -->
-			<p>Start: <input type="text" name="start" /></p>
-			<p>End: <input type="text" name="end" /></p>
+			<p>Start: <input type="text" name="start[]" /></p>
+			<p>End: <input type="text" name="end[]" /></p>
+			<p>Start: <input type="text" name="start[]" /></p>
+			<p>End: <input type="text" name="end[]" /></p>
 			<input name="submit" type="submit" value="Submit" />
 		</form>
 	</div>
 
 	<?php
-		$sqlMain = "SELECT * FROM main";
-		$sqlSchedule = "SELECT * FROM schedule";
-		$resMain = mysqli_query($link,$sqlMain);
-		$resSchedule = mysqli_query($link,$sqlSchedule);
+		$sql = "SELECT * FROM demo";
+		$res = mysqli_query($link,$sql);
 		$countdownArray = array();
 
 		while ($row = mysqli_fetch_array($res)) {
@@ -41,8 +40,10 @@
 			$end = $row['end'];
 			echo "<form action='demo.php' method='post' />
 				<p>Title: <input type='text' name='title' value='$title' /></p>
-				<p>Start: <input type='text' name='start' value='$start' /></p>
-				<p>End: <input type='text' name='end' value='$end' /></p>
+				<p>Start: <input type='text' name='start[]' value='$start' /></p>
+				<p>End: <input type='text' name='end[]' value='$end' /></p>
+				<p>Start: <input type='text' name='start[]' value='$start' /></p>
+				<p>End: <input type='text' name='end[]' value='$end' /></p>
 				<input name='id' value='$id' style='display: none' />
 				<input name='edit' type='submit' value='Edit' />
 				<input name='delete' type='submit' value='Delete' />
