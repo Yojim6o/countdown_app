@@ -89,5 +89,6 @@ function buildJSON($link) {
 //log out of database
 mysqli_close();
 
+//return to the same page after performing an action
 header('Location: '.$_SERVER['HTTP_REFERER']);
 ?>
