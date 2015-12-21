@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 	mysqli_query($link,$sql);
 	$Pid = mysqli_insert_id($link);
 
-	for ($i = 0; $i < count($start); ++$i) {
+	for ($i = 0; $i < count($start); $i++) {
 
 		$schedule = $start[$i] .','. $end[$i];
 		$sql2 = "INSERT INTO schedule (PID, schedule) VALUES ('$Pid','$schedule')";
@@ -34,18 +34,51 @@ if (isset($_POST['submit'])) {
 	//buildJSON($link);
 }
 
+//Add sched
+if (isset($_POST['add_sched'])) {
+	$id = strip_tags($_POST['id']);
+
+	$sql2 = "INSERT INTO schedule (PID) VALUES ('$id')";
+	mysqli_query($link,$sql2);
+
+	// buildJSON($link);
+}
+
+//remove sched
+if (isset($_POST['remove_sched'])) {
+	$id = strip_tags($_POST['id']);
+
+	$sql2 = "INSERT INTO schedule (PID) VALUES ('$id')";
+	mysqli_query($link,$sql2);
+
+	// buildJSON($link);
+}
+
 //Edit
 if (isset($_POST['edit'])) {
 	$id = strip_tags($_POST['id']);
 	$title = strip_tags($_POST['title']);
 	$deadline = strip_tags($_POST['deadline']);
-	$start = strip_tags($_POST['start']);
-	$end = strip_tags($_POST['end']);
+	$start = $_POST['start'];
+	$end = $_POST['end'];
+	$Nid = $_POST['sche_id'];
 
-	$sql = "UPDATE demo SET title='$title', deadline='$deadline', start='$start', end='$end' WHERE ID = '$id' ";
+	// $sql = "UPDATE demo SET title='$title', deadline='$deadline', start='$start', end='$end' WHERE ID = '$id' ";
+	// mysqli_query($link,$sql);
+
+	$sql = "UPDATE demo SET title='$title', deadline='$deadline' WHERE ID = '$id' ";
 	mysqli_query($link,$sql);
 
-	buildJSON($link);
+	for ($i = 0; $i < count($Nid); $i++) {
+
+		$schedule = $start[$i] .','. $end[$i];
+		$sch_id = $Nid[$i];
+		$sql2 = "UPDATE schedule SET schedule='$schedule' WHERE ID = '$sch_id' ";
+		mysqli_query($link,$sql2);
+
+	}
+
+	// buildJSON($link);
 }
 
 //Delete

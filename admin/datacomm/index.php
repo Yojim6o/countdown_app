@@ -59,7 +59,7 @@
 			while ($rowSched = mysqli_fetch_array($resSched)) {
 
 				//set variables for parameters in schedule
-				$pid = $rowSched['PID'];
+				$pid = $rowSched['ID'];
 				$idSched = $rowSched['ID'];
 				$start_end = explode(',', $rowSched['schedule']);
 				$start = $start_end[0];
@@ -67,16 +67,17 @@
 
 				//generate and start and end tag for each schedule
 				echo "<div class='timespan'>";
-				echo "<input name='pid' value='$pid' style='display: none' />";
+				echo "<input name='sche_id[]' value='$pid' style='display: none' />";
 				echo "<p>Start: <input type='text' name='start[]' value='$start' /></p>";
 				echo "<p>End: <input type='text' name='end[]' value='$end' /></p>";
+				echo "<input style='background-color:red' type='submit' name='remove_sched' value='-'/>";
 				echo "</div>";
 			}
 
 			//generate the buttons in the view for each countdown
 			echo "</div>";
-			echo "<button type='button' onClick='addSchedule(".$i.")'>Add Schedule</button>";
 			echo "<input name='id' value='$id' style='display: none' />";
+			echo "<input style='background-color:green' type='submit' name='add_sched' value='+'/>";
 			echo "<input name='edit' type='submit' value='Edit' />";
 			echo "<input name='delete' type='submit' value='Delete' />";
 			echo "</form></br>";
