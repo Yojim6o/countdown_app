@@ -1,4 +1,5 @@
 <?php
+	//define database parameters
 	define('DB_NAME', 'forms1');
 	define('DB_USER', 'root');
 	define('DB_PASSWORD', 'root');
@@ -12,17 +13,20 @@
 <html>
 <head>
 	<title>database</title>
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-
 	<div>
 		<form action="demo.php" method="post" />
 			<p>Title: <input type="text" name="title" /></p>
-<!-- 			<p>Deadline: <input type="text" name="deadline" /></p> -->
-			<p>Start: <input type="text" name="start[]" /></p>
-			<p>End: <input type="text" name="end[]" /></p>
-			<p>Start: <input type="text" name="start[]" /></p>
-			<p>End: <input type="text" name="end[]" /></p>
+			<p>Deadline: <input type="text" name="deadline" /></p>
+			<div id="schedule_0">
+				<div class="timespan">
+					<p>Start: <input type="text" name="start[]" /></p>
+					<p>End: <input type="text" name="end[]" /></p>
+				</div>
+			</div>
+			<button id="but" onClick="addSchedule('0')" type="button">Add Schedule</button>
 			<input name="submit" type="submit" value="Submit" />
 		</form>
 	</div>
@@ -31,6 +35,7 @@
 		//SQL statement for demo
 		$sql = "SELECT * FROM demo";
 		$res = mysqli_query($link,$sql);
+		$i = 1;
 
 		//while there are rows in demo
 		while ($row = mysqli_fetch_array($res)) {
@@ -38,6 +43,7 @@
 			//set variables for each parameter in demo
 			$id = $row['ID'];
 			$title = $row['title'];
+			$deadline = $row['deadline'];
 
 			//SQL statement for schedule
 			$sqlSched = "SELECT * FROM schedule WHERE PID = '$id'";
@@ -46,7 +52,9 @@
 			//display top of form
 			echo "<form action='demo.php' method='post' />";
 			echo "<p>Title: <input type='text' name='title' value='$title' /></p>";
-
+			echo "<p>Deadline: <input type='text' name='deadline' value='$deadline' /></p>";
+			echo "<div id='schedule_".$i."' >";
+			
 			//while there are rows in schedule
 			while ($rowSched = mysqli_fetch_array($resSched)) {
 
@@ -58,19 +66,33 @@
 				$end = $start_end[1];
 
 				//generate and start and end tag for each schedule
+				echo "<div class='timespan'>";
 				echo "<input name='pid' value='$pid' style='display: none' />";
 				echo "<p>Start: <input type='text' name='start[]' value='$start' /></p>";
 				echo "<p>End: <input type='text' name='end[]' value='$end' /></p>";
+				echo "</div>";
 			}
 
 			//generate the buttons in the view for each countdown
+			echo "</div>";
+			echo "<button type='button' onClick='addSchedule(".$i.")'>Add Schedule</button>";
 			echo "<input name='id' value='$id' style='display: none' />";
 			echo "<input name='edit' type='submit' value='Edit' />";
 			echo "<input name='delete' type='submit' value='Delete' />";
 			echo "</form></br>";
-
+			$i++;
 		}
 	?>
+	<script>
 
+		var addSchedule = function(e){
+			var schedule = document.getElementById("schedule_"+e);
+			var timespan = document.createElement("div");
+			timespan.className = 'timespan';
+			timespan.innerHTML = "<p>Start: <input type='text' name='start[]' /></p>" 
+				+ "<p>End: <input type='text' name='end[]'' /></p>";
+			schedule.appendChild(timespan);
+		}
+	</script>
 </body>
 </html>

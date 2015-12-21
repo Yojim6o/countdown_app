@@ -1,6 +1,6 @@
 <?php
 
-//define databse parameters
+//define database parameters
 define('DB_NAME', 'forms1');
 define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
@@ -15,10 +15,11 @@ $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if (isset($_POST['submit'])) {
 
 	$title = $_POST['title'];
+	$deadline = $_POST['deadline'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 
-	$sql = "INSERT INTO demo (title) VALUES ('$title')";
+	$sql = "INSERT INTO demo (title, deadline) VALUES ('$title', '$deadline')";
 	mysqli_query($link,$sql);
 	$Pid = mysqli_insert_id($link);
 
@@ -37,10 +38,11 @@ if (isset($_POST['submit'])) {
 if (isset($_POST['edit'])) {
 	$id = strip_tags($_POST['id']);
 	$title = strip_tags($_POST['title']);
+	$deadline = strip_tags($_POST['deadline']);
 	$start = strip_tags($_POST['start']);
 	$end = strip_tags($_POST['end']);
 
-	$sql = "UPDATE demo SET title='$title', start='$start', end='$end' WHERE ID = '$id' ";
+	$sql = "UPDATE demo SET title='$title', deadline='$deadline', start='$start', end='$end' WHERE ID = '$id' ";
 	mysqli_query($link,$sql);
 
 	buildJSON($link);
@@ -61,6 +63,7 @@ function buildJSON($link) {
 
 	$id = $_POST['ID'];
 	$title = $_POST['title'];
+	$deadline = $_POST['deadline'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 
