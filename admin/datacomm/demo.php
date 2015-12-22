@@ -9,8 +9,6 @@ define('DB_HOST', 'localhost');
 //define link which logs in to the database
 $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-// $db_selected = mysqli_select_db(DB_NAME);
-
 //Submit
 if (isset($_POST['submit'])) {
 
@@ -31,7 +29,7 @@ if (isset($_POST['submit'])) {
 
 	}
 
-	//buildJSON($link);
+	buildJSON($link);
 }
 
 //Add sched
@@ -41,17 +39,18 @@ if (isset($_POST['add_sched'])) {
 	$sql2 = "INSERT INTO schedule (PID) VALUES ('$id')";
 	mysqli_query($link,$sql2);
 
-	// buildJSON($link);
+	buildJSON($link);
 }
 
 //remove sched
 if (isset($_POST['remove_sched'])) {
-	$id = strip_tags($_POST['id']);
+	$Nid = $_POST['sche_id'];
+	$Npos = $Nid[$_POST['remove_sched']];
 
-	$sql2 = "INSERT INTO schedule (PID) VALUES ('$id')";
-	mysqli_query($link,$sql2);
+	 $sql2 = "DELETE FROM schedule WHERE ID = '$Npos' ";
+	 mysqli_query($link,$sql2);
 
-	// buildJSON($link);
+	buildJSON($link);
 }
 
 //Edit
@@ -62,9 +61,6 @@ if (isset($_POST['edit'])) {
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 	$Nid = $_POST['sche_id'];
-
-	// $sql = "UPDATE demo SET title='$title', deadline='$deadline', start='$start', end='$end' WHERE ID = '$id' ";
-	// mysqli_query($link,$sql);
 
 	$sql = "UPDATE demo SET title='$title', deadline='$deadline' WHERE ID = '$id' ";
 	mysqli_query($link,$sql);
@@ -78,7 +74,7 @@ if (isset($_POST['edit'])) {
 
 	}
 
-	// buildJSON($link);
+	buildJSON($link);
 }
 
 //Delete
@@ -89,37 +85,45 @@ if (isset($_POST['delete'])) {
 	// buildJSON($link);
 }
 
+//build json function
 function buildJSON($link) {
-	$sql = "SELECT * FROM demo ORDER BY id ASC";
+
+	$sql = "SELECT * FROM demo";
 	$res = mysqli_query($link,$sql);
-	$cdArray = array();
+	
+	$AArray = array();
 
-	$id = $_POST['ID'];
-	$title = $_POST['title'];
-	$deadline = $_POST['deadline'];
-	$start = $_POST['start'];
-	$end = $_POST['end'];
+	while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+		$title = strip_tags($_POST['title']);
+		$deadline = strip_tags($_POST['deadline']);
+		$id = $row['ID'];
 
-	// while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-	// 	$main = $row['title'];
-	// 	$schedule = array($row['start'], $row['end']);
-	// 	$mArray = array($main, $schedule);
-	// 	array_push($cdArray, $mArray);
-	// 	array_push($cdArray, $row);
-	// }
+		$sqlSched = "SELECT * FROM schedule WHERE PID = '$id'";
+		$resSched = mysqli_query($link,$sqlSched);
 
+		$CArray = array();
+		while ($rowSched = mysqli_fetch_array($resSched, MYSQLI_ASSOC)) {
 
-	foreach( $title as $v) {
-		print_r("");
+			$DArray = array();
+
+			$schedule = strip_tags($rowSched['schedule']);
+			$start_end = explode(',', $schedule);
+			$start = $start_end[0];
+			$end = $start_end[1];
+			$DArray = array('start'=>$start, 'end'=>$end);
+			array_push($CArray,$DArray);
+		}
+		$BArray = array('title'=>$title,'deadline'=>$deadline,'schedule'=>$CArray);
+
+		array_push($AArray,$BArray);
 	}
-	// print_r($cdArray);
-	// $myarray = mysql_fetch_array($res);
-	// $json = json_encode($cdArray);
- 	// print_r($json);
-	// $fp = fopen('results.json', 'w');
-	// $txt = "var countdowns = ";
-	// fwrite($fp, $txt.$json);
-	// fclose($fp);
+	// print_r(json_encode($AArray));
+	$json = json_encode($AArray);
+	$fp = fopen('results.json', 'w');
+	$txt = "var countdowns = ";
+ 	print_r($txt.$json);
+	fwrite($fp, $txt.$json);
+	fclose($fp);
 }
 
 //log out of database

@@ -14,6 +14,20 @@
 <head>
 	<title>database</title>
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<style>
+	.timespan{position:relative; width:200px;}
+	.delete{
+		background-image:url(http://ezpro.co/blog/wp-content/uploads/2014/12/red-delete-button.jpg); 
+		background-size:100%; 
+		background-position:center center; 
+		background-color:red; 
+		color: transparent;  
+		border:none;
+		position: absolute;
+		right:0px;
+		top: 50%;
+	}
+	</style>
 </head>
 <body>
 	<div>
@@ -54,13 +68,13 @@
 			echo "<p>Title: <input type='text' name='title' value='$title' /></p>";
 			echo "<p>Deadline: <input type='text' name='deadline' value='$deadline' /></p>";
 			echo "<div id='schedule_".$i."' >";
-			
+			$k = 0;
 			//while there are rows in schedule
 			while ($rowSched = mysqli_fetch_array($resSched)) {
 
 				//set variables for parameters in schedule
 				$pid = $rowSched['ID'];
-				$idSched = $rowSched['ID'];
+				// $idSched = $rowSched['ID'];
 				$start_end = explode(',', $rowSched['schedule']);
 				$start = $start_end[0];
 				$end = $start_end[1];
@@ -70,14 +84,15 @@
 				echo "<input name='sche_id[]' value='$pid' style='display: none' />";
 				echo "<p>Start: <input type='text' name='start[]' value='$start' /></p>";
 				echo "<p>End: <input type='text' name='end[]' value='$end' /></p>";
-				echo "<input style='background-color:red' type='submit' name='remove_sched' value='-'/>";
+				echo "<input class='delete' type='submit' name='remove_sched' value='$k'/>";
 				echo "</div>";
+				$k++;
 			}
 
 			//generate the buttons in the view for each countdown
 			echo "</div>";
 			echo "<input name='id' value='$id' style='display: none' />";
-			echo "<input style='background-color:green' type='submit' name='add_sched' value='+'/>";
+			echo "<input style='background-color:green; border:none' type='submit' name='add_sched' value='+'/>";
 			echo "<input name='edit' type='submit' value='Edit' />";
 			echo "<input name='delete' type='submit' value='Delete' />";
 			echo "</form></br>";
