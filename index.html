@@ -3,23 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>countdowns</title>
-  <script src="js/countdowns.json"></script>
+  <script src="admin/datacomm/results.json"></script>
   <script src="js/functions.js"></script>
 </head>
 <body>
   <script>
 
-      var j = Number(window.location.href.split('?')[1]);
-      var index = countdowns[j];
-      var title = index["title"];
-      var deadline = index["deadline"];
-      var schedule = index["schedule"];
-      if (deadline) {
-        createClockDiv(title);
-        initializeClock(title, deadline);
-      } else if (schedule) {
-        initializeScheduledCountdown(title, schedule);
-      }
+    var j = Number(window.location.href.split('?')[1]);
+    var index = countdowns[('_'+j)];
+    var title = index["title"];
+    var deadline = index["deadline"];
+    var schedule = index["schedule"];
+    if (deadline) {
+      createClockDiv(title);
+      initializeClock(title, deadline);
+    } else if (schedule) {
+      initializeScheduledCountdown(title, schedule);
+    }
 
   </script>
 </body>

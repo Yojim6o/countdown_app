@@ -6,7 +6,6 @@
 	define('DB_HOST', 'localhost');
 
 	$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-	// mysqli_select_db(DB_NAME);
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +63,8 @@
 			$resSched = mysqli_query($link,$sqlSched);
 
 			//display top of form
+			echo "<hr>";
+			echo "<p>Countdown ID: ".$id."</p>";
 			echo "<form action='demo.php' method='post' />";
 			echo "<p>Title: <input type='text' name='title' value='$title' /></p>";
 			echo "<p>Deadline: <input type='text' name='deadline' value='$deadline' /></p>";

@@ -38,8 +38,6 @@ if (isset($_POST['add_sched'])) {
 
 	$sql2 = "INSERT INTO schedule (PID) VALUES ('$id')";
 	mysqli_query($link,$sql2);
-
-	buildJSON($link);
 }
 
 //remove sched
@@ -49,8 +47,6 @@ if (isset($_POST['remove_sched'])) {
 
 	 $sql2 = "DELETE FROM schedule WHERE ID = '$Npos' ";
 	 mysqli_query($link,$sql2);
-
-	buildJSON($link);
 }
 
 //Edit
@@ -102,8 +98,8 @@ function buildJSON($link) {
 	$AArray = array();
 
 	while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-		$title = strip_tags($_POST['title']);
-		$deadline = strip_tags($_POST['deadline']);
+		$title = $row['title'];
+		$deadline = $row['deadline'];
 		$id = $row['ID'];
 
 		$sqlSched = "SELECT * FROM schedule WHERE PID = '$id'";
@@ -121,9 +117,10 @@ function buildJSON($link) {
 			$DArray = array('start'=>$start, 'end'=>$end);
 			array_push($CArray,$DArray);
 		}
-		$BArray = array('title'=>$title,'deadline'=>$deadline,'schedule'=>$CArray);
+		$BArray = array('id'=>$id, 'title'=>$title,'deadline'=>$deadline,'schedule'=>$CArray);
 
-		array_push($AArray,$BArray);
+		$AArray['_'.$id] = $BArray;
+		$BArray=array();
 	}
 	// print_r(json_encode($AArray));
 	$json = json_encode($AArray);
