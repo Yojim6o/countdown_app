@@ -81,8 +81,16 @@ if (isset($_POST['edit'])) {
 if (isset($_POST['delete'])) {
 	$id = strip_tags($_POST['id']);
 	$sql = "DELETE FROM demo WHERE ID = '$id' ";
+	// mysqli_query($link,$sql);
+	$Nid = $_POST['sche_id'];
+	for ($i = 0; $i < count($Nid); $i++) {
+
+		$sql2 = "DELETE FROM schedule WHERE PID = '$id' ";
+		mysqli_query($link,$sql2);
+
+	}
 	mysqli_query($link,$sql);
-	// buildJSON($link);
+	buildJSON($link);
 }
 
 //build json function
@@ -121,7 +129,7 @@ function buildJSON($link) {
 	$json = json_encode($AArray);
 	$fp = fopen('results.json', 'w');
 	$txt = "var countdowns = ";
- 	print_r($txt.$json);
+ 	// print_r($txt.$json);
 	fwrite($fp, $txt.$json);
 	fclose($fp);
 }
