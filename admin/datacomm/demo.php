@@ -119,7 +119,7 @@ function buildJSON($link) {
 		}
 		$BArray = array('id'=>$id, 'title'=>$title,'deadline'=>$deadline,'schedule'=>$CArray);
 
-		$AArray['_'.$id] = $BArray;
+		$AArray[$id] = $BArray;
 		$BArray=array();
 	}
 	// print_r(json_encode($AArray));

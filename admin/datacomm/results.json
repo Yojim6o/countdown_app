@@ -1,1 +1,1 @@
-var countdowns = {"_188":{"id":"188","title":"game 1","deadline":"December 25 2015 18:00:00","schedule":[{"start":"","end":""}]},"_189":{"id":"189","title":"GAME 2","deadline":"","schedule":[{"start":"December 20 2015 18:00:00","end":"December 25 2015 18:00:00"}]}}
+var countdowns = {"188":{"id":"188","title":"game 1","deadline":"December 25 2015 18:00:00","schedule":[{"start":"","end":""}]},"189":{"id":"189","title":"GAME 2","deadline":"","schedule":[{"start":"December 20 2015 18:00:00","end":"December 25 2015 18:00:00"}]}}
