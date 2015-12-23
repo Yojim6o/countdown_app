@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-	<meta charset="UTF-8">
-	<title>countdowns</title>
-  <script src="admin/datacomm/results.json"></script>
-  <script src="js/functions.js"></script>
-  <link rel="stylesheet" href="./css/style.css" />
-</head>
-<body>
-  <script>
-
-    var j = Number(window.location.href.split('?')[1]);
-    var index = countdowns[j];
-    var title = index["title"];
-    var deadline = index["deadline"];
-    var schedule = index["schedule"];
-    if (getTimeRemaining(deadline)['days'] < 0) {
-      createExpiredClock(title, index['message']);
-    } else if (deadline) {
-      createClockDiv(title);
-      initializeClock(title, deadline);
-    } else if (schedule) {
-      initializeScheduledCountdown(title, schedule);
-    }
-
-  </script>
-</body>
-</html>
+<!--<script src="manager/js/results.json"></script>
+<script src="js/functions.js"></script>
+<link rel="stylesheet" href="./css/style.css" />-->
+<div id="script_cont"></div>
+<script> var j = '241';</script>
+<script src="timer.js"></script>

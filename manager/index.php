@@ -11,36 +11,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>database</title>
-	<style>
-	.timespan{position:relative; width:200px;}
-	.delete{
-		background-image:url(http://ezpro.co/blog/wp-content/uploads/2014/12/red-delete-button.jpg); 
-		background-size:100%; 
-		background-position:center center; 
-		background-color:red; 
-		color: transparent;  
-		border:none;
-		position: absolute;
-		right:0px;
-		top: 50%;
-	}
-	</style>
+	<title>countdown maker</title>
+	<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-	<div>
+	<div class="header">
 		<form action="demo.php" method="post" />
-			<p>Title: <input type="text" name="title" /></p>
-			<p>Deadline: <input type="text" name="deadline" /></p>
-			<p>Message: <input type="text" name="message" /></p>
-			<div id="schedule_0">
-				<div class="timespan">
-					<p>Start: <input type="text" name="start[]" /></p>
-					<p>End: <input type="text" name="end[]" /></p>
+			<h1>Countdown Title</h1><input class="title" type="text" name="title" />
+			<p>Deadline: <input class="deadline" type="text" name="deadline" /> <em>(format like so: December 11 2015 16:32:00)</em></p>
+			<p>Message: <input class="message" type="text" name="message" /> <em>(what the countdown says after the deadline)</em></p>
+			<div id="schedule"></div>
+			<div class="button-row">
+				<button onClick="addSchedule()" type="button">Add Schedule</button>
+				<div class="scheduleTool">
+					<a href="" class="anchor">?</a>
+					<p class="helptool">A Schedule allows you to determine the timespan of when a countdown is active.  You can add multiple schedules so that when one expires, the next one will activate. Leave the "Deadline" and "Message" fields blank if you use this feature.</p>
 				</div>
 			</div>
-			<button id="but" onClick="addSchedule('0')" type="button">Add Schedule</button>
-			<input name="submit" type="submit" value="Submit" />
+			<div class="submitButton">
+				<input class="button" id="submit" name="submit" type="submit" value="Submit" />
+			</div>
 		</form>
 	</div>
 
@@ -49,6 +39,8 @@
 		$sql = "SELECT * FROM demo";
 		$res = mysqli_query($link,$sql);
 		$i = 1;
+
+		echo "<div class='master'>";
 
 		//while there are rows in demo
 		while ($row = mysqli_fetch_array($res)) {
@@ -64,12 +56,12 @@
 			$resSched = mysqli_query($link,$sqlSched);
 
 			//display top of form
-			echo "<hr>";
+			echo "<div class='content'>";
 			echo "<p>Countdown ID: ".$id."</p>";
 			echo "<form action='demo.php' method='post' />";
-			echo "<p>Title: <input type='text' name='title' value='$title' /></p>";
-			echo "<p>Deadline: <input type='text' name='deadline' value='$deadline' /></p>";
-			echo "<p>Message: <input type='text' name='message' value='$message' /></p>";
+			echo "<p>Title: <input class='title' type='text' name='title' value='$title' /></p>";
+			echo "<p>Deadline: <input class='deadline' type='text' name='deadline' value='$deadline' /></p>";
+			echo "<p>Message: <input class='message' type='text' name='message' value='$message' /></p>";
 			echo "<div id='schedule_".$i."' >";
 			$k = 0;
 			//while there are rows in schedule
@@ -77,16 +69,15 @@
 
 				//set variables for parameters in schedule
 				$pid = $rowSched['ID'];
-				// $idSched = $rowSched['ID'];
 				$start_end = explode(',', $rowSched['schedule']);
 				$start = $start_end[0];
 				$end = $start_end[1];
 
 				//generate and start and end tag for each schedule
-				echo "<div class='timespan'>";
+				echo "<div class='timespan ts'>";
 				echo "<input name='sche_id[]' value='$pid' style='display: none' />";
-				echo "<p>Start: <input type='text' name='start[]' value='$start' /></p>";
-				echo "<p>End: <input type='text' name='end[]' value='$end' /></p>";
+				echo "<p>Start Time: <input type='text' name='start[]' value='$start' /></p>";
+				echo "<p>End Time: <input type='text' name='end[]' value='$end' /></p>";
 				echo "<input class='delete' type='submit' name='remove_sched' value='$k'/>";
 				echo "</div>";
 				$k++;
@@ -95,22 +86,39 @@
 			//generate the buttons in the view for each countdown
 			echo "</div>";
 			echo "<input name='id' value='$id' style='display: none' />";
-			echo "<input style='background-color:green; border:none' type='submit' name='add_sched' value='+'/>";
-			echo "<input name='edit' type='submit' value='Edit' />";
-			echo "<input name='delete' type='submit' value='Delete' />";
-			echo "</form></br>";
+			echo "<input class='button' type='submit' name='add_sched' value='Add Schedule'/>";
+			echo "<div class='button-row'>";
+			echo "<div class='deleteButton'>";
+			echo "<input id='delete' class='button' name='delete' type='submit' value='Delete Countdown' />";
+			echo "</div>";
+			echo "<div class='saveButton'>";
+			echo "<input id='save' class='button' name='edit' type='submit' value='Save Changes' />";
+			echo "</div>";
+			echo "</div>";
+			echo "</form></div><br>";
 			$i++;
 		}
+
+		echo "</div>";
 	?>
 	<script>
 
-		var addSchedule = function(e){
-			var schedule = document.getElementById("schedule_"+e);
+		var t = 0;
+		var addSchedule = function(){
+			var schedule = document.getElementById("schedule");
 			var timespan = document.createElement("div");
-			timespan.className = 'timespan';
-			timespan.innerHTML = "<p>Start: <input type='text' name='start[]' /></p>" 
-				+ "<p>End: <input type='text' name='end[]'' /></p>";
+			timespan.id = 'timespan_'+t;
+			timespan.className = 'ts';
+			timespan.innerHTML = "<button class='timespan-delete' onClick=deleteTimespan(" + t + ") type='button'>X</button>"
+				+ "<p>Start Time: <input type='text' name='start[]' /></p>" 
+				+ "<p>End Time: <input type='text' name='end[]' /></p>";
 			schedule.appendChild(timespan);
+			t++;
+		}
+
+		var deleteTimespan = function(e) {
+			var timespan = document.getElementById("timespan_"+e);
+			timespan.parentNode.removeChild(timespan);
 		}
 	</script>
 </body>

@@ -1,0 +1,40 @@
+div {
+/*	border: 1px solid red;*/
+}
+header, footer, .page-title, .create-button, .title, .size {
+	text-align: center;
+}
+button {
+    border: 2px solid gray;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+}
+button:active, button:focus {
+    border: 2px solid yellow;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+}
+.master {
+	/*top right bottom left*/
+	margin: 0px 10% 0px 10%;
+}
+.title {
+	margin-top: 20px;
+}
+.title input {
+	width: 80%;
+	height: 30px;
+}
+.right {
+	text-align: right;
+}
+.preview {
+	width: 35%;
+	height: 300px;
+}
+.hexicodes p {
+	font-size: 80%
+}
+
