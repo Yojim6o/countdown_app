@@ -1,0 +1,40 @@
+.container {
+	background-color: #5e5e5e;
+	width: 680px;
+}
+div, span, h1, p {
+/*	border: 1px solid red;*/
+}
+h1, h3 {
+	margin-top: 4px;
+	text-align: center;
+	color: white;
+	font-family: calibri;
+}
+span {
+	text-align: center;
+	color: white;
+}
+.days, .hours, .minutes, .seconds {
+	font-size: 40px;
+	min-width: 200px;
+}
+.clock {
+	display: inline;
+	text-align: center;
+	margin-left: 13%;
+/*	border: 3px solid blue;*/
+}
+.timer {
+	display: inline-block;
+	width: 100px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.digits{
+/*	border: 1px solid yellow;*/
+	background-color: #3c1a1a;
+	border-radius: 8px;
+	height: 50px;
+	padding-top: 7px;
+}

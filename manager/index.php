@@ -12,7 +12,6 @@
 <html>
 <head>
 	<title>database</title>
-	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<style>
 	.timespan{position:relative; width:200px;}
 	.delete{
@@ -33,6 +32,7 @@
 		<form action="demo.php" method="post" />
 			<p>Title: <input type="text" name="title" /></p>
 			<p>Deadline: <input type="text" name="deadline" /></p>
+			<p>Message: <input type="text" name="message" /></p>
 			<div id="schedule_0">
 				<div class="timespan">
 					<p>Start: <input type="text" name="start[]" /></p>
@@ -57,6 +57,7 @@
 			$id = $row['ID'];
 			$title = $row['title'];
 			$deadline = $row['deadline'];
+			$message = $row['message'];
 
 			//SQL statement for schedule
 			$sqlSched = "SELECT * FROM schedule WHERE PID = '$id'";
@@ -68,6 +69,7 @@
 			echo "<form action='demo.php' method='post' />";
 			echo "<p>Title: <input type='text' name='title' value='$title' /></p>";
 			echo "<p>Deadline: <input type='text' name='deadline' value='$deadline' /></p>";
+			echo "<p>Message: <input type='text' name='message' value='$message' /></p>";
 			echo "<div id='schedule_".$i."' >";
 			$k = 0;
 			//while there are rows in schedule

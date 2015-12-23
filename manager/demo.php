@@ -14,10 +14,11 @@ if (isset($_POST['submit'])) {
 
 	$title = $_POST['title'];
 	$deadline = $_POST['deadline'];
+	$message = $_POST['message'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 
-	$sql = "INSERT INTO demo (title, deadline) VALUES ('$title', '$deadline')";
+	$sql = "INSERT INTO demo (title, deadline, message) VALUES ('$title', '$deadline','$message')";
 	mysqli_query($link,$sql);
 	$Pid = mysqli_insert_id($link);
 
@@ -54,11 +55,12 @@ if (isset($_POST['edit'])) {
 	$id = strip_tags($_POST['id']);
 	$title = strip_tags($_POST['title']);
 	$deadline = strip_tags($_POST['deadline']);
+	$message = strip_tags($_POST['message']);
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 	$Nid = $_POST['sche_id'];
 
-	$sql = "UPDATE demo SET title='$title', deadline='$deadline' WHERE ID = '$id' ";
+	$sql = "UPDATE demo SET title='$title', deadline='$deadline', message='$message' WHERE ID = '$id' ";
 	mysqli_query($link,$sql);
 
 	for ($i = 0; $i < count($Nid); $i++) {
@@ -100,6 +102,7 @@ function buildJSON($link) {
 	while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
 		$title = $row['title'];
 		$deadline = $row['deadline'];
+		$message = $row['message'];
 		$id = $row['ID'];
 
 		$sqlSched = "SELECT * FROM schedule WHERE PID = '$id'";
@@ -117,14 +120,14 @@ function buildJSON($link) {
 			$DArray = array('start'=>$start, 'end'=>$end);
 			array_push($CArray,$DArray);
 		}
-		$BArray = array('id'=>$id, 'title'=>$title,'deadline'=>$deadline,'schedule'=>$CArray);
+		$BArray = array('id'=>$id, 'title'=>$title,'deadline'=>$deadline, 'message'=>$message, 'schedule'=>$CArray);
 
 		$AArray[$id] = $BArray;
 		$BArray=array();
 	}
 	// print_r(json_encode($AArray));
 	$json = json_encode($AArray);
-	$fp = fopen('results.json', 'w');
+	$fp = fopen('js/results.json', 'w');
 	$txt = "var countdowns = ";
  	// print_r($txt.$json);
 	fwrite($fp, $txt.$json);

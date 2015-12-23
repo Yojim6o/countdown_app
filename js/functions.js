@@ -66,9 +66,18 @@ function initializeScheduledCountdown(title, schedule) {
 };
 
 function createClockDiv(title) {
-    document.write('<div id="' + title + '">' + title + '<br>'
-    + 'Days: <span class="days"></span><br>'
-    + 'Hours: <span class="hours"></span><br>'
-    + 'Minutes: <span class="minutes"></span><br>'
-    + 'Seconds: <span class="seconds"></span></div><hr>');
+    document.write('<div class="container"><div id="' + title + '"><h1>' + title + '</h1>'
+    + '<div class="clock">'
+    + '<div class="timer"><div class="digits"><span class="days"></span></div><h3>DAYS</h3></div>'
+    + '<div class="timer"><div class="digits"><span class="hours"></span></div><h3>HOURS</h3></div>'
+    + '<div class="timer"><div class="digits"><span class="minutes"></span></div><h3>MINUTES</h3></div>'
+    + '<div class="timer"><div class="digits"><span class="seconds"></span></div><h3>SECONDS</h3></div>'
+    + '</div></div></div><br>');
+};
+
+function createExpiredClock(title, message) {
+    document.write('<div class="container"><div id="' + title + '"><h1>' + title + '</h1>'
+    + '<div class="clock">'
+    + '<h1>' + message + '</h1>'
+    + '</div></div></div><br>');
 };

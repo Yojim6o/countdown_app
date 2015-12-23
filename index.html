@@ -5,6 +5,7 @@
 	<title>countdowns</title>
   <script src="admin/datacomm/results.json"></script>
   <script src="js/functions.js"></script>
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
   <script>
@@ -14,7 +15,9 @@
     var title = index["title"];
     var deadline = index["deadline"];
     var schedule = index["schedule"];
-    if (deadline) {
+    if (getTimeRemaining(deadline)['days'] < 0) {
+      createExpiredClock(title, index['message']);
+    } else if (deadline) {
       createClockDiv(title);
       initializeClock(title, deadline);
     } else if (schedule) {
