@@ -76,8 +76,8 @@ function createClockDiv(title) {
 };
 
 function createExpiredClock(title, message) {
-    document.write('<div class="container"><div id="' + title + '"><h1>' + title + '</h1>'
-    + '<div class="clock">'
-    + '<h1>' + message + '</h1>'
-    + '</div></div></div><br>');
+  document.write('<div class="container"><div id="' + title + '"><h1>' + title + '</h1>'
+  + '<div class="clock">'
+  + '<h1>' + message + '</h1>'
+  + '</div></div></div><br>');
 };

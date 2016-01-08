@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 
 	$title = $_POST['title'];
 	$deadline = $_POST['deadline'];
-	$message = $_POST['message'];
+	$message = htmlentities($_POST['message'], ENT_QUOTES);
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 
@@ -55,7 +55,7 @@ if (isset($_POST['edit'])) {
 	$id = strip_tags($_POST['id']);
 	$title = strip_tags($_POST['title']);
 	$deadline = strip_tags($_POST['deadline']);
-	$message = strip_tags($_POST['message']);
+	$message = htmlentities($_POST['message'], ENT_QUOTES);
 	$start = $_POST['start'];
 	$end = $_POST['end'];
 	$Nid = $_POST['sche_id'];
@@ -128,9 +128,9 @@ function buildJSON($link) {
 	// print_r(json_encode($AArray));
 	$json = json_encode($AArray);
 	$fp = fopen('js/results.json', 'w');
-	$txt = "var countdowns = ";
+	// $txt = "var countdowns = ";
  	// print_r($txt.$json);
-	fwrite($fp, $txt.$json);
+	fwrite($fp, $json);
 	fclose($fp);
 }
 

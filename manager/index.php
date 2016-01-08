@@ -11,18 +11,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>countdown maker</title>
+	<meta charset="utf-8">
+	<title>Countdown Creator</title>
 	<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
 	<div class="header">
 		<form action="demo.php" method="post" />
-			<h1>Countdown Title</h1><input class="title" type="text" name="title" />
-			<p>Deadline: <input class="deadline" type="text" name="deadline" /> <em>(format like so: December 11 2015 16:32:00)</em></p>
-			<p>Message: <input class="message" type="text" name="message" /> <em>(what the countdown says after the deadline)</em></p>
+			<h1>Create a Countdown Title: <em>(e.g. North VS South)</em></h1><input class="title" type="text" name="title" />
+			<p>What time is the Deadline?: <input class="deadline" type="text" name="deadline" /> <em>(format like so: December 11 2015 16:32:00)</em></p>
+			<p>What message will display after the Deadline?: <input class="message" type="text" name="message" /></p>
 			<div id="schedule"></div>
 			<div class="button-row">
-				<button onClick="addSchedule()" type="button">Add Schedule</button>
+				<button id="addSched" onClick="addSchedule()" type="button">Add Schedule</button>
 				<div class="scheduleTool">
 					<a href="" class="anchor">?</a>
 					<p class="helptool">A Schedule allows you to determine the timespan of when a countdown is active.  You can add multiple schedules so that when one expires, the next one will activate. Leave the "Deadline" and "Message" fields blank if you use this feature.</p>
@@ -57,7 +58,7 @@
 
 			//display top of form
 			echo "<div class='content'>";
-			echo "<p>Countdown ID: ".$id."</p>";
+			echo "<p>Countdown ID: ".$id."<em> (use this ID to access the countdown view)</em></p>";
 			echo "<form action='demo.php' method='post' />";
 			echo "<p>Title: <input class='title' type='text' name='title' value='$title' /></p>";
 			echo "<p>Deadline: <input class='deadline' type='text' name='deadline' value='$deadline' /></p>";
@@ -86,7 +87,7 @@
 			//generate the buttons in the view for each countdown
 			echo "</div>";
 			echo "<input name='id' value='$id' style='display: none' />";
-			echo "<input class='button' type='submit' name='add_sched' value='Add Schedule'/>";
+			echo "<input class='button' id='addSched' type='submit' name='add_sched' value='Add Schedule'/>";
 			echo "<div class='button-row'>";
 			echo "<div class='deleteButton'>";
 			echo "<input id='delete' class='button' name='delete' type='submit' value='Delete Countdown' />";

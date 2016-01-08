@@ -1,14 +1,11 @@
 /*////// GENERAL STYLING //////*/
 body {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	padding-top: 270px;
-	background-image: url("background.jpg");
+/*	background-image: url("background.jpg");*/
+	background-color: #a5cff3;
 	background-position: center 150px;
 	background-attachment: fixed;
-
-}
-input {
-	border-radius: 2px
 }
 h1 {
 	margin: 10px 0px 5px 0px;
@@ -16,11 +13,11 @@ h1 {
 }
 em {
 	font-size: 80%;
-	color: gray;
+	color: #2b546f;
 }
 strong {
 	font-size: 120%;
-	color: gray;
+	color: #174888;
 }
 /*div  {
 	border: 1px solid red;
@@ -30,18 +27,38 @@ strong {
 
 /*////// BUTTON STYLING ///////*/
 button, .button {
-    border: 2px solid gray;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 300;
+	border: black;
     border-radius: 5px;
     width: 150px;
     height: 30px;
     margin: 3px 3px 3px 3px;
+    transition: all 0.5s ease 0s;
 }
-button:active, button:focus, .button:active, .button:focus {
-    border: 2px solid #00FA9A;
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
+#submit, #save {
+	background-color: #5ce365;
 }
+#submit:hover, #save:hover {
+	background-color: #2eb637;
+}
+#addSched {
+	background-color: #afb2af;
+}
+#addSched:hover {
+	background-color: #2b546f;
+}
+#delete {
+	background-color: #fb6e6e;
+}
+#delete:hover {
+	background-color: red;
+}
+/*button:hover, .button:hover {
+	background-color: #949292;
+}*/
 .submitButton {
 	text-align: right;
 	margin-right: 20px;
@@ -50,18 +67,14 @@ button:active, button:focus, .button:active, .button:focus {
 	text-align: right;
 	display: inline;
 }
-#submit, #save{
-	background-color: #C1FFC1;
-}
-#delete {
-	background-color: #fb6e6e;
-}
 
 
 /*///// HEADER STYLING /////*/
 .header {
-	background-color: black;
-	color: white;
+	background-color: #f4f4f4;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+	border: 1px solid #fff;
+/*	color: white;*/
 	position: fixed;
 	width: 100%;
 	top: 0px;
@@ -101,6 +114,7 @@ button:active, button:focus, .button:active, .button:focus {
 .content {
 	margin: 0px 10% 0px 10%;
 	text-align: center;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /*/// POP UP MESSAGE ///*/
@@ -128,7 +142,7 @@ button:active, button:focus, .button:active, .button:focus {
 	background-color: white;
 	padding: 7px 7px 7px 7px;
 	width: 150px;
-	box-shadow: 10px 10px 5px black;
+	box-shadow: 5px 5px 10px black;
 }
 
 /*//// EXISTING COUNTDOWN STYLING ////*/

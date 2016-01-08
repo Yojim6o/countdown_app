@@ -1,5 +1,5 @@
 .container {
-	background-image: url("background.jpg");
+	background-color: gray;
 	width: 680px;
 }
 div, span, h1, p {
