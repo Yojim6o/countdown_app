@@ -2,14 +2,16 @@
 <html>
 <head>
   <title>hello</title>
-  <link rel="stylesheet" src="../css/style.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="text/javascript" src="./manager/js/results.js"></script>
+  <script type="text/javascript" src="./js/functions.js"></script>
 </head>
 <body>
   <script>
 
     // var countdowns = {"1":{"id":"1","title":"north vs south","deadline":"January 15 2016 16:32:00","message":"deadline","schedule":[]}}
 
-    function createPage(countdowns) {
+    // function createPage(countdowns) {
       var j = Number(window.location.href.split('?')[1]);
       // var j = '241';
       // var countdowns = e;
@@ -26,20 +28,19 @@
       } else if (schedule) {
         initializeScheduledCountdown(title, schedule);
       }
-    }
+    // }
 
-    var xmlhttp = new XMLHttpRequest();
-    var url = "../manager/js/results.json";
-    xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var myArr = JSON.parse(xmlhttp.responseText);
-        createPage(myArr);
-      }
-    }
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
+    // var xmlhttp = new XMLHttpRequest();
+    // var url = "./manager/js/results.json";
+    // xmlhttp.onreadystatechange = function() {
+    // if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    //   var myArr = JSON.parse(xmlhttp.responseText);
+    //     createPage(myArr);
+    //   }
+    // }
+    // xmlhttp.open("GET", url, true);
+    // xmlhttp.send();
 
   </script>
-  <script type="text/javascript" src="../js/functions.js"></script>
 </body>
 </html>

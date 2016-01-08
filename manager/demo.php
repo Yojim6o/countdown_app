@@ -127,10 +127,10 @@ function buildJSON($link) {
 	}
 	// print_r(json_encode($AArray));
 	$json = json_encode($AArray);
-	$fp = fopen('js/results.json', 'w');
-	// $txt = "var countdowns = ";
+	$fp = fopen('js/results.js', 'w');
+	$txt = "var countdowns = ";
  	// print_r($txt.$json);
-	fwrite($fp, $json);
+	fwrite($fp, $txt . $json);
 	fclose($fp);
 }
 
